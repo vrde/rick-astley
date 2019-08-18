@@ -1,0 +1,24 @@
+{
+  "name": "rick-astley",
+  "version": "0.0.1",
+  "description": "Never gonna give you up, never gonna let you down",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "test:watch": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vrde/rick-astley.git"
+  },
+  "author": "vrde",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vrde/rick-astley/issues"
+  },
+  "homepage": "https://github.com/vrde/rick-astley#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^6.2.0"
+  }
+}
