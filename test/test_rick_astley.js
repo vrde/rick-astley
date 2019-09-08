@@ -1,39 +1,24 @@
+const { MockError, assertThrows, fails, timeoutFail } = require("./utils");
 const assert = require("assert");
-const { rick } = require("../");
+const { default: rick, TimeoutError } = require("../lib");
 
-async function assertThrows(f, spec) {
-  let error;
-  try {
-    await f();
-  } catch (e) {
-    error = e;
-    if (spec !== undefined) {
-      for (let key in spec) {
-        assert.equal(e[key], spec[key]);
-      }
-    }
-  }
-  if (!error) {
-    assert.fail();
-  }
-}
+// configure rick to not sleep between attempts, then pass through the other options
+const r = (f, options) => rick(f, Object.assign({ sleepTime: 0 }, options));
 
 describe("rick-astley", () => {
-  it("does his thing", async () => {
-    assert.equal(await rick(() => 1), 1);
-
-    const fails = times => () => {
-      if (times-- > 0) {
-        const e = new Error(`${times + 1} attempt(s) left`);
-        e.type = "fail";
-        throw e;
-      }
-      return "done";
-    };
-    assert.equal(await rick(fails(2), { sleepTime: 0 }), "done");
-
-    await assertThrows(async () => await rick(fails(3), { sleepTime: 0 }), {
-      type: "fail"
-    });
+  it("returns the value of a non failing function", async () => {
+    assert.equal(await r(() => 1), 1);
+  });
+  it("retries to call a failing function and return its value", async () => {
+    const f = fails(2);
+    assert.equal(await r(f), "done");
+  });
+  it("throws if max number of attempts has been reached", async () => {
+    const f = fails(Infinity);
+    await assertThrows(r(f), MockError);
+  });
+  it("throws if timeout has been reached", async () => {
+    const f = fails(Infinity, timeoutFail(1000));
+    await assertThrows(r(f, { timeout: 1 }), TimeoutError);
   });
 });

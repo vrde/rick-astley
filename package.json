@@ -2,23 +2,25 @@
   "name": "rick-astley",
   "version": "0.0.1",
   "description": "Never gonna give you up, never gonna let you down",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha",
-    "test:watch": "mocha -w"
+    "prepare": "tsc --declaration",
+    "test": "tsc && mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vrde/rick-astley.git"
   },
   "author": "vrde",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/vrde/rick-astley/issues"
   },
   "homepage": "https://github.com/vrde/rick-astley#readme",
-  "dependencies": {},
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "@types/node": "^12.7.4",
+    "mocha": "^6.2.0",
+    "tslint": "^5.19.0",
+    "typescript": "^3.6.2"
   }
 }
