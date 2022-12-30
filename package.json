@@ -19,7 +19,7 @@
   "homepage": "https://github.com/vrde/rick-astley#readme",
   "devDependencies": {
     "@types/node": "^12.7.4",
-    "mocha": "^6.2.0",
+    "mocha": "^10.2.0",
     "tslint": "^5.19.0",
     "typescript": "^3.6.2"
   }
